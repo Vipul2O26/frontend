@@ -1,0 +1,54 @@
+<button 
+  [routerLink]="['/dashboard']">
+  ← Back to Dashboard
+</button>
+
+
+
+<div class="container mt-5">
+    <h2 class="mb-4">Employee List</h2>
+  
+    <table class="table table-bordered table-striped" *ngIf="employees.length > 0">
+      <thead class="table-dark">
+        <tr>
+     
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>City</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees">
+       
+          <td>{{ emp.firstName }}</td>
+          <td>{{ emp.lastName }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.contactnumber }}</td>
+          <td>{{ emp.city }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2" (click)="viewEmployee(emp)">View</button>
+            <button class="btn btn-sm btn-warning me-2" (click)="editEmployee(emp)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteEmployee(emp.employeeId)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="selectedEmployee" class="card mt-4">
+      <div class="card-header bg-info text-white">
+        Employee Details
+      </div>
+      <div class="card-body">
+        <p><strong>ID:</strong> {{ selectedEmployee.employeeId }}</p>
+        <p><strong>Name:</strong> {{ selectedEmployee.firstName }} {{ selectedEmployee.lastName }}</p>
+        <p><strong>Email:</strong> {{ selectedEmployee.email }}</p>
+        <p><strong>Contact:</strong> {{ selectedEmployee.contactnumber }}</p>
+        <p><strong>City:</strong> {{ selectedEmployee.city }}</p>
+        <button class="btn btn-secondary" (click)="selectedEmployee = null">Close</button>
+      </div>
+    </div>
+  </div>
+  

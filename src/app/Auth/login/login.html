@@ -1,0 +1,50 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Login</h2>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <input
+                type="email"
+                formControlName="email"
+                placeholder="Email"
+                class="form-control"
+              />
+              <div *ngIf="submitted && loginForm.controls['email'].errors" class="text-danger small mt-1">
+                Valid email is required.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <input
+                type="password"
+                formControlName="password"
+                placeholder="Password"
+                class="form-control"
+              />
+              <div *ngIf="submitted && loginForm.controls['password'].errors" class="text-danger small mt-1">
+                Password is required.
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+              Login
+            </button>
+
+            <p *ngIf="errorMessage" class="text-danger text-center mt-3">
+              {{ errorMessage }}
+            </p>
+          </form>
+
+          <p class="text-center mt-3">
+            Don't have an account?
+            <a [routerLink]="['/register']">Register here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

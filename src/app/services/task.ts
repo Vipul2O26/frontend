@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
+export class Task {
   private apiUrl = 'http://localhost:5157/api/EmployeeDatas'; // Your .NET API URL
 
   constructor(private http: HttpClient) {}

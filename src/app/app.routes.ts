@@ -1,27 +1,20 @@
 import { Routes } from '@angular/router';
+import { TaskForm } from './component/task-form/task-form';
+import { TaskItem } from './component/task-item/task-item';
+import { TaskList } from './component/task-list/task-list';
 
-import { Dashboard } from './dashboard/dashboard';
-import { EmployeeListComponent } from './components/employee-list/employee-list';
-import { LoginComponent } from './Auth/login/login';
-import { RegisterComponent } from './Auth/register/register';
-import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
- 
-    {
-        path: 'dashboard',
-        component: Dashboard
-    },
-    {
-        path: 'employee-list',
-        component: EmployeeListComponent
-    },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
-        path: 'register',
-        component: RegisterComponent
-    }
+{
+    path: 'task-form',
+    component: TaskForm
+},
+{
+    path: 'task-item',
+    component: TaskItem
+},
+{
+    path: 'task-list',
+    component: TaskList
+}
 ];

@@ -1,1 +1,52 @@
-<p>task-form works!</p>
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow bg-light">
+  <div class="mb-3">
+    <label class="form-label">Task Title</label>
+    <input
+      formControlName="title"
+      type="text"
+      class="form-control"
+      placeholder="Enter task title"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea
+      formControlName="description"
+      class="form-control"
+      placeholder="Optional task description"
+      rows="3"
+    ></textarea>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label class="form-label">Due Date</label>
+      <input
+        formControlName="dueDate"
+        type="datetime-local"
+        class="form-control"
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Priority</label>
+      <select formControlName="priority" class="form-select">
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="text-end">
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="taskForm.invalid"
+    >
+      ➕ Add Task
+    </button>
+  </div>
+</form>

@@ -1,20 +1,21 @@
 import { Routes } from '@angular/router';
 import { TaskForm } from './component/task-form/task-form';
-import { TaskItem } from './component/task-item/task-item';
-import { TaskList } from './component/task-list/task-list';
+import { DashboardComponent } from './component/dashboard/dashboard';
+import { HeaderComponent } from './component/header/header';
 
 
 export const routes: Routes = [
+    {
+        path: 'task-form',
+        component: TaskForm
+      },
 {
-    path: 'task-form',
-    component: TaskForm
+    path: '',
+    component: DashboardComponent
 },
 {
-    path: 'task-item',
-    component: TaskItem
-},
-{
-    path: 'task-list',
-    component: TaskList
+    path: 'header',
+    component: HeaderComponent
 }
+
 ];

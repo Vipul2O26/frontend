@@ -1,66 +1,78 @@
-<app-header></app-header>
+<div class="container py-5">
+  <div class="row">
+    <!-- Left: Task List and Filters -->
+    <div class="col-lg-8">
+      <!-- Title -->
+      <div class="d-flex justify-content-between align-items-center mb-6">
+        <h2 class="fw-bold mb-0">📋 Task Dashboard</h2>
+        
+      </div>
 
-<div class="container py-5" [class.dark-mode]="isDarkMode">
-  <h2 class="text-center mb-4">📋 Task Dashboard</h2>
+     
+      <!-- Task Table -->
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light text-center">
+              <tr>
+                <th>Title</th>
+                <th>Priority</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let task of tasks()">
+                <td>{{ task.title }}</td>
+                <td>
+                  <span class="badge rounded-pill"
+                    [ngClass]="{
+                      'bg-danger': task.priority === 'High',
+                      'bg-warning text-dark': task.priority === 'Medium',
+                      'bg-success': task.priority === 'Low'
+                    }">
+                    {{ task.priority }}
+                  </span>
+                </td>
+                <td>{{ task.dueDate | date: 'mediumDate' }}</td>
+                <td>
+                  <span class="badge rounded-pill"
+                    [ngClass]="{
+                      'bg-success': task.isCompleted,
+                      'bg-secondary': !task.isCompleted
+                    }">
+                    {{ task.isCompleted ? 'Completed' : 'Pending' }}
+                  </span>
+                </td>
+                <td class="text-center">
+                  <a [routerLink]="['/task-form']" [queryParams]="{ id: task.id }"
+                    class="btn btn-sm btn-outline-primary me-2">✏️ Edit</a>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteTask(task.id)">
+                    🗑️ Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-  <!-- Dark Mode Toggle -->
-  <div class="text-end mb-3">
-    <button class="btn btn-sm btn-outline-secondary" (click)="toggleDarkMode()">
-      🌓 Toggle Dark Mode
-    </button>
-  </div>
+      <!-- Pie Chart -->
+      <div class="card shadow-sm text-center p-4 mb-5">
+        <h4 class="mb-3">📊 Task Priority Distribution</h4>
+        <div style="width: 250px; height: 250px; margin: auto;">
+          <canvas id="taskChart"></canvas>
+        </div>
+      </div>
+    </div>
 
-  <!-- Add Task -->
-  <div class="text-end mb-3">
-    <a routerLink="/task-form" class="btn btn-primary">➕ Add Task</a>
-  </div>
-
-  <!-- Table -->
-  <div class="table-responsive border rounded">
-    <table class="table table-bordered table-hover align-middle">
-      <thead class="table-light text-center">
-        <tr>
-          <th>Title</th>
-          <th>Priority</th>
-          <th>Due Date</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let task of tasks()">
-          <td>{{ task.title }}</td>
-          <td>
-            <span class="badge"
-              [ngClass]="{
-                'bg-danger': task.priority === 'High',
-                'bg-warning text-dark': task.priority === 'Medium',
-                'bg-success': task.priority === 'Low'
-              }">
-              {{ task.priority }}
-            </span>
-          </td>
-          <td>{{ task.dueDate | date: 'mediumDate' }}</td>
-          <td>
-            <span class="badge"
-              [ngClass]="{
-                'bg-success': task.isCompleted,
-                'bg-secondary': !task.isCompleted
-              }">
-              {{ task.isCompleted ? 'Completed' : 'Pending' }}
-            </span>
-          </td>
-          <td class="text-center">
-            <a [routerLink]="['/task-form']" [queryParams]="{ id: task.id }" class="btn btn-sm btn-outline-primary me-1">Edit</a>
-            <button (click)="deleteTask(task.id)" class="btn btn-sm btn-outline-danger">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
+  
   <!-- Confirmation Modal -->
-  <div class="modal fade show d-block" *ngIf="showModal" style="background: rgba(0, 0, 0, 0.5)">
+  <div
+    class="modal fade show d-block"
+    *ngIf="showModal"
+    style="background: rgba(0, 0, 0, 0.5)">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -78,23 +90,17 @@
   </div>
 
   <!-- Toast Notification -->
-  <div class="toast show position-fixed bottom-0 end-0 m-4 text-bg-success" *ngIf="showToast" style="z-index: 1055">
+  <div
+    class="toast show position-fixed bottom-0 end-0 m-4 text-bg-success"
+    *ngIf="showToast"
+    style="z-index: 1055">
     <div class="d-flex">
-      <div class="toast-body">
-        {{ toastMessage }}
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" (click)="showToast = false"></button>
-    </div>
-  </div>
-
-  <!-- Pie Chart -->
-  <div class="my-4 text-center">
-    <h4>📊 Task Priority Distribution</h4>
-    <div style="width: 200px; height: 200px; margin: auto;">
-      <canvas id="taskChart"></canvas>
+      <div class="toast-body">{{ toastMessage }}</div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        (click)="showToast = false"></button>
     </div>
   </div>
 </div>
 
-
-<app-footer></app-footer>

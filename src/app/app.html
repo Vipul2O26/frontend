@@ -1,3 +1,24 @@
- 
-  <router-outlet></router-outlet>
+<div class="d-flex min-vh-100">
+  <!-- Left Sidebar (Header) -->
+  <div class="bg-light border-end" style="width: 220px; flex-shrink: 0;">
+    <app-header></app-header>
+  </div>
+
+  <!-- Main Content (RouterOutlet) -->
+  <div class="flex-grow-1 px-3 py-3 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="w-100" style="max-width: 1000px;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
   
+
+
+  <!-- Right Sidebar -->
+<div class="bg-light border-start" style="width: 360px; flex-shrink: 0; overflow-y: auto;">
+  <app-calendar></app-calendar>
+</div>
+
+</div>
+
+<!-- Footer Outside (Fixed Below) -->
+<app-footer></app-footer>

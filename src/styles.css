@@ -1,1 +1,64 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.css */
+
+/* styles.css */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+body.dark-mode .table {
+  color: #f1f1f1;
+}
+
+body.dark-mode .table-bordered {
+  border-color: #444;
+}
+
+body.dark-mode .table-hover tbody tr:hover {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode .table-light {
+  background-color: #2c2c2c !important;
+  color: #f1f1f1;
+}
+
+body.dark-mode .modal-content {
+  background-color: #1f1f1f;
+  color: #f1f1f1;
+}
+
+body.dark-mode .btn-outline-primary {
+  color: #90caf9;
+  border-color: #90caf9;
+}
+
+body.dark-mode .btn-outline-primary:hover {
+  background-color: #90caf9;
+  color: #000;
+}
+
+body.dark-mode .btn-outline-danger {
+  color: #f28b82;
+  border-color: #f28b82;
+}
+
+body.dark-mode .btn-outline-danger:hover {
+  background-color: #f28b82;
+  color: #000;
+}
+
+body.dark-mode .toast {
+  background-color: #333 !important;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+body.dark-mode .btn-close {
+  filter: invert(1);
+}

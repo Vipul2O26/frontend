@@ -1,4 +1,9 @@
-<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="p-4 border rounded shadow bg-light">
+<form
+  [formGroup]="taskForm"
+  (ngSubmit)="onSubmit()"
+  class="p-4 border rounded shadow bg-light"
+>
+  <!-- Task Title -->
   <div class="mb-3">
     <label class="form-label">Task Title</label>
     <input
@@ -10,6 +15,7 @@
     />
   </div>
 
+  <!-- Description -->
   <div class="mb-3">
     <label class="form-label">Description</label>
     <textarea
@@ -20,8 +26,9 @@
     ></textarea>
   </div>
 
-  <div class="row mb-3">
-    <div class="col-md-6">
+  <!-- Due Date & Priority: Stacked on mobile, side-by-side on md+ -->
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-md-6">
       <label class="form-label">Due Date</label>
       <input
         formControlName="dueDate"
@@ -30,7 +37,7 @@
       />
     </div>
 
-    <div class="col-md-6">
+    <div class="col-12 col-md-6">
       <label class="form-label">Priority</label>
       <select formControlName="priority" class="form-select">
         <option value="Low">Low</option>
@@ -40,10 +47,11 @@
     </div>
   </div>
 
-  <div class="text-end">
+  <!-- Submit Button -->
+  <div class="d-grid d-md-flex justify-content-md-end">
     <button
       type="submit"
-      class="btn btn-primary"
+      class="btn btn-primary px-4"
       [disabled]="taskForm.invalid"
     >
       ➕ Add Task

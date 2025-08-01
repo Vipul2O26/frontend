@@ -2,12 +2,14 @@ import { Component, Output, EventEmitter, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { HeaderComponent } from '../header/header';
+import { FooterComponent } from '../footer/footer';
 
 @Component({
   standalone: true,
   selector: 'app-task-form',
-  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './task-form.html',
   styleUrl: './task-form.css'
 })

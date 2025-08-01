@@ -1,0 +1,64 @@
+<div class="container my-4">
+  <h4>📅 Monthly Task Calendar</h4>
+
+  <!-- Month Navigation -->
+  <div class="d-flex justify-content-between align-items-center my-3">
+    <button class="btn btn-outline-secondary btn-sm" (click)="goToPreviousMonth()">← Prev</button>
+    <h5 class="mb-0">
+      {{ currentDate | date: 'MMMM yyyy' }}
+    </h5>
+    <button class="btn btn-outline-secondary btn-sm" (click)="goToNextMonth()">Next →</button>
+  </div>
+
+  <!-- Calendar Grid -->
+  <div class="table-responsive">
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th *ngFor="let day of ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']">{{ day }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let week of weeks">
+          <td *ngFor="let day of week" [ngClass]="{
+              'bg-primary text-white': isSelected(day),
+              'bg-light': isToday(day),
+              'cursor-pointer': day
+            }" (click)="day && selectDate(day)">
+            <div *ngIf="day">
+              {{ day.getDate() }}
+              <div *ngIf="hasTasks(day)" class="mt-1">
+                <span class="badge bg-success rounded-pill">●</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Task List -->
+  <h6>Tasks on {{ selectedDate }}</h6>
+  <div *ngIf="getTasksForSelectedDate().length > 0; else noTasks">
+    <ul class="list-group">
+      <li
+        *ngFor="let task of getTasksForSelectedDate()"
+        class="list-group-item d-flex justify-content-between"
+      >
+        {{ task.title }}
+        <span
+          class="badge"
+          [ngClass]="{
+            'bg-success': task.isCompleted,
+            'bg-secondary': !task.isCompleted
+          }"
+        >
+          {{ task.isCompleted ? 'Completed' : 'Pending' }}
+        </span>
+      </li>
+    </ul>
+  </div>
+  <ng-template #noTasks>
+    <p class="text-muted">No tasks for this date.</p>
+  </ng-template>
+</div>

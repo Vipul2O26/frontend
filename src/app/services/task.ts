@@ -41,5 +41,10 @@ export class Task {
   deleteTask(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
- 
+  markTaskAsCompleted(id: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, {
+      isCompleted: true
+    });
+  }
+  
 }

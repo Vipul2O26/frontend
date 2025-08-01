@@ -1,9 +1,17 @@
+<!-- ✅ Toast Notification -->
+<div *ngIf="showToast" class="alert alert-success text-center fw-bold" role="alert">
+  {{ toastMessage }}
+</div>
+
+<!-- ✅ Task Form -->
 <form
+  #formRef
   [formGroup]="taskForm"
   (ngSubmit)="onSubmit()"
-  class="p-4 border rounded shadow bg-light"
+  class="p-4 border rounded shadow bg-light mt-4"
 >
-  <!-- Task Title -->
+
+  <!-- 🔤 Title -->
   <div class="mb-3">
     <label class="form-label">Task Title</label>
     <input
@@ -11,11 +19,14 @@
       type="text"
       class="form-control"
       placeholder="Enter task title"
-      required
+      [class.is-invalid]="taskForm.get('title')?.invalid && taskForm.get('title')?.touched"
     />
+    <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched" class="invalid-feedback">
+      Title must be at least 3 characters long.
+    </div>
   </div>
 
-  <!-- Description -->
+  <!-- 📝 Description -->
   <div class="mb-3">
     <label class="form-label">Description</label>
     <textarea
@@ -26,7 +37,7 @@
     ></textarea>
   </div>
 
-  <!-- Due Date & Priority: Stacked on mobile, side-by-side on md+ -->
+  <!-- 🕒 Due Date & Priority -->
   <div class="row g-3 mb-3">
     <div class="col-12 col-md-6">
       <label class="form-label">Due Date</label>
@@ -34,27 +45,31 @@
         formControlName="dueDate"
         type="datetime-local"
         class="form-control"
+        [class.is-invalid]="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched"
       />
+      <div *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched" class="invalid-feedback">
+        Due date is required.
+      </div>
     </div>
 
     <div class="col-12 col-md-6">
       <label class="form-label">Priority</label>
       <select formControlName="priority" class="form-select">
         <option value="Low">Low</option>
-        <option value="Medium" selected>Medium</option>
+        <option value="Medium">Medium</option>
         <option value="High">High</option>
       </select>
     </div>
   </div>
 
-  <!-- Submit Button -->
+  <!-- ✅ Submit Button -->
   <div class="d-grid d-md-flex justify-content-md-end">
     <button
       type="submit"
       class="btn btn-primary px-4"
       [disabled]="taskForm.invalid"
     >
-      ➕ Add Task
+      {{ isEditMode ? '💾 Update Task' : '➕ Add Task' }}
     </button>
   </div>
 </form>

@@ -37,6 +37,12 @@ export class HeaderComponent {
     throw new Error('Method not implemented.');
   }
   
+  // in your dashboard component
+isSidebarOpen = false;
+toggleSidebar() {
+  this.isSidebarOpen = !this.isSidebarOpen;
+}
+
 
  
 }

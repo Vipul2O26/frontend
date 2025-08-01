@@ -1,17 +1,20 @@
 import { Routes } from '@angular/router';
-import { TaskForm } from './component/task-form/task-form';
+import { TaskFormComponent } from './component/task-form/task-form';
 import { DashboardComponent } from './component/dashboard/dashboard';
 import { HeaderComponent } from './component/header/header';
 import { CalendarComponent } from './component/calendar/calendar';
+import { LoginComponent } from './component/Auth/login/login';
+import { RegisterComponent } from './component/Auth/register/register';
+
 
 
 export const routes: Routes = [
     {
         path: 'task-form',
-        component: TaskForm
+        component: TaskFormComponent
       },
 {
-    path: '',
+    path: 'dashboard',
     component: DashboardComponent
 },
 {
@@ -21,6 +24,14 @@ export const routes: Routes = [
 {
     path: 'calendar',
     component: CalendarComponent
-}
-
+},
+{
+    path: 'Auth/login',
+    component: LoginComponent
+},
+{
+    path: 'Auth/register',
+    component: RegisterComponent
+},
+{ path: '', redirectTo: 'Auth/login', pathMatch: 'full' },
 ];

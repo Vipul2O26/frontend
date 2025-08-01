@@ -11,12 +11,21 @@ import { CalendarComponent } from './component/calendar/calendar';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet , ToastrModule, CommonModule , HeaderComponent, FooterComponent , CalendarComponent],
+  imports: [RouterOutlet , ToastrModule, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('crud1');
+
+  isDarkMode = false;
+
+toggleDarkMode() {
+  this.isDarkMode = !this.isDarkMode;
+  document.body.classList.toggle('bg-dark', this.isDarkMode);
+  document.body.classList.toggle('text-white', this.isDarkMode);
+}
+
 }
 
 

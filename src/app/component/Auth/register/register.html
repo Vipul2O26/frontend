@@ -1,0 +1,8 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="p-4 border rounded bg-light">
+    <h3>Register</h3>
+    <input formControlName="email" placeholder="Email" class="form-control mb-2" />
+    <input formControlName="name" placeholder="Name" class="form-control mb-2" />
+    <input type="password" formControlName="password" placeholder="Password" class="form-control mb-2" />
+    <button class="btn btn-primary">Register</button>
+  </form>
+  <a routerLink="/Auth/login" class="nav-link">Login</a>

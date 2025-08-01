@@ -1,11 +1,12 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { Inject, PLATFORM_ID } from '@angular/core';
 import Chart from 'chart.js/auto';
-
+import { HeaderComponent } from '../header/header';
+import { FooterComponent } from '../footer/footer';
+import { CalendarComponent } from '../calendar/calendar';
 
 interface TodoTask {
   id: number;
@@ -18,14 +19,13 @@ interface TodoTask {
 @Component({
   standalone: true,
   selector: 'app-task-dashboard',
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule , HeaderComponent , FooterComponent , CalendarComponent],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
 export class DashboardComponent implements OnInit {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-
   private http = inject(HttpClient);
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   tasks = signal<TodoTask[]>([]);
   allTasks: TodoTask[] = [];
@@ -39,19 +39,13 @@ export class DashboardComponent implements OnInit {
   isDarkMode = false;
   selectedDate = '';
 
-  // Calendar Data
-  calendarMonths: { monthName: string; days: number[]; month: number; year: number }[] = [];
-
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.isDarkMode = localStorage.getItem('theme') === 'dark';
     }
-
-    
     this.fetchTasks();
   }
 
-  // Fetch tasks from backend
   fetchTasks() {
     this.http.get<TodoTask[]>('http://localhost:5157/api/TodoTasks').subscribe(data => {
       this.allTasks = data;
@@ -60,8 +54,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  loadTasks() {
+    this.fetchTasks();
+  }
 
-  // Chart render logic
   renderChart(tasks: TodoTask[]) {
     const counts = { High: 0, Medium: 0, Low: 0 };
     tasks.forEach(task => counts[task.priority]++);
@@ -84,17 +80,13 @@ export class DashboardComponent implements OnInit {
         responsive: true,
         plugins: {
           legend: {
-            position: 'bottom',
-            labels: {
-              color: this.isDarkMode ? '#fff' : '#000'
-            }
+            display: false
           }
         }
       }
     });
   }
 
-  // Delete logic
   deleteTask(taskId: number) {
     this.taskToDelete = taskId;
     this.showModal = true;
@@ -111,7 +103,7 @@ export class DashboardComponent implements OnInit {
         next: () => {
           const updatedTasks = this.tasks().filter(task => task.id !== this.taskToDelete);
           this.tasks.set(updatedTasks);
-          this.toastMessage = 'Task deleted successfully!';
+          this.toastMessage = '🗑️ Task deleted successfully!';
           this.showToast = true;
           setTimeout(() => this.showToast = false, 3000);
           this.showModal = false;
@@ -119,7 +111,7 @@ export class DashboardComponent implements OnInit {
           this.renderChart(updatedTasks);
         },
         error: () => {
-          this.toastMessage = 'Failed to delete task!';
+          this.toastMessage = '❌ Failed to delete task!';
           this.showToast = true;
           setTimeout(() => this.showToast = false, 3000);
           this.showModal = false;
@@ -128,4 +120,28 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
+
+  markAsComplete(id: number): void {
+    const task = this.tasks().find(t => t.id === id);
+    if (!task) return;
+
+    const updatedTask: TodoTask = { ...task, isCompleted: true };
+
+    this.http.put(`http://localhost:5157/api/TodoTasks/${id}`, updatedTask).subscribe({
+      next: () => {
+        this.toastMessage = '✅ Task marked as completed!';
+        this.showToast = true;
+        setTimeout(() => this.showToast = false, 3000);
+        this.loadTasks(); 
+      },
+      error: err => {
+        console.error('Failed to mark as complete', err);
+        this.toastMessage = '❌ Failed to update task!';
+        this.showToast = true;
+        setTimeout(() => this.showToast = false, 3000);
+      }
+    });
+  }
+
+  
 }

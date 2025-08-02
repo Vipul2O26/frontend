@@ -2,8 +2,8 @@
 <div *ngIf="showToast" class="alert alert-success text-center fw-bold" role="alert">
   {{ toastMessage }}
 </div>
+<app-header></app-header>
 
-<!-- ✅ Task Form -->
 <form
   #formRef
   [formGroup]="taskForm"

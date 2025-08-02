@@ -12,3 +12,6 @@
 .dark-mode .nav-link {
   color: white !important;
 }
+.sidebar {
+  transition: left 0.3s ease;
+}

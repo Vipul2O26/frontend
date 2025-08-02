@@ -4,12 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ViewChild, ElementRef } from '@angular/core';
+import { HeaderComponent } from '../header/header';
 
 
 @Component({
   standalone: true,
   selector: 'app-task-form',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule , HeaderComponent],
   templateUrl: './task-form.html',
   styleUrl: './task-form.css'
 })

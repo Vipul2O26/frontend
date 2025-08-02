@@ -1,22 +1,29 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule , CommonModule],
   templateUrl: './header.html',
 })
 export class HeaderComponent {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   isDarkMode = false;
+  isSidebarOpen = true;
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
   toggleDarkMode() {
     if (isPlatformBrowser(this.platformId)) {
       this.isDarkMode = !this.isDarkMode;
-
       const body = document.body;
+
       if (this.isDarkMode) {
         body.classList.add('dark-mode');
         localStorage.setItem('theme', 'dark');
@@ -33,16 +40,8 @@ export class HeaderComponent {
     }
     this.fetchTasks();
   }
+
   fetchTasks() {
-    throw new Error('Method not implemented.');
+    // Placeholder method
   }
-  
-  // in your dashboard component
-isSidebarOpen = false;
-toggleSidebar() {
-  this.isSidebarOpen = !this.isSidebarOpen;
-}
-
-
- 
 }

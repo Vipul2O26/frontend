@@ -1,9 +1,15 @@
-<!-- Sidebar -->
-<div class="sidebar bg-dark text-white p-3 d-flex flex-column justify-content-between"
-     style="width: 250px; height: 100vh; position: fixed; top: 0; left: 0;">
-  
+<div 
+  class="sidebar bg-dark text-white p-3 d-flex flex-column justify-content-between transition-all duration-300"
+  [ngStyle]="{
+    left: isSidebarOpen ? '0' : '-250px',
+    width: '250px',
+    height: '100vh',
+    position: 'fixed',
+    top: '0'
+  }"
+>
   <div>
-    <h5 class="mb-4">📋 Task Manager</h5>
+    <h5 class="mb-4"></h5>
     <ul class="nav flex-column">
       <li class="nav-item mb-2">
         <a class="nav-link text-white" routerLink="/">🏠 Dashboard</a>
@@ -16,8 +22,17 @@
 
   <!-- Dark Mode Toggle Button at Bottom -->
   <div>
-    <button class="btn btn-outline-light w-20 mt-auto" (click)="toggleDarkMode()">
-      {{ isDarkMode ? '🌞' : '🌙' }}
+    <button class="btn btn-outline-light w-100 mt-auto" (click)="toggleDarkMode()">
+      {{ isDarkMode ? '🌞 Light Mode' : '🌙 Dark Mode' }}
     </button>
   </div>
 </div>
+
+<!-- Toggle Button (shown on top bar or somewhere in main content) -->
+<button 
+  class="btn btn-dark position-fixed top-0 start-0 m-2"
+  (click)="toggleSidebar()"
+  style="z-index: 1050;"
+>
+  {{ isSidebarOpen ? '❌ Close' : '📂 Menu' }}
+</button>

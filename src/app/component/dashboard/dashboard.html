@@ -1,7 +1,7 @@
 <br>
 <div class="container-fluid py-4">
   <div class="row">
-    <!-- Left: Main Content (Task Dashboard) -->
+    <!-- 📋 Left: Main Content (Task Dashboard) -->
     <div class="col-lg-9">
       <!-- Title -->
       <div class="d-flex justify-content-between align-items-center mb-4">
@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <!-- Pie Chart -->
+      <!-- 📊 Pie Chart -->
       <div class="card shadow-sm text-center p-4 mb-4">
         <h4 class="mb-3">📊 Task Priority Distribution</h4>
         <div style="width: 250px; height: 250px; margin: auto;">
@@ -68,8 +68,8 @@
       </div>
     </div>
 
-    <!-- Right: Sidebar with Calendar -->
-    <div class="col-lg-3">
+    <!-- 📅 Right: Sidebar (Calendar) -->
+    <div class="col-lg-3 mt-5 mt-lg-0">
       <div class="bg-white border rounded shadow-sm p-3 mb-4">
         <app-calendar></app-calendar>
       </div>
@@ -77,7 +77,7 @@
   </div>
 </div>
 
-<!-- Confirmation Modal -->
+<!-- 🔐 Confirmation Modal -->
 <div class="modal fade show d-block" *ngIf="showModal" style="background: rgba(0, 0, 0, 0.5)">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -95,7 +95,7 @@
   </div>
 </div>
 
-<!-- Toast Notification -->
+<!-- 🔔 Toast Notification -->
 <div class="toast show position-fixed bottom-0 end-0 m-4 text-bg-danger"
      *ngIf="showToast"
      style="z-index: 1055">
@@ -107,7 +107,6 @@
   </div>
 </div>
 
-
-<app-footer></app-footer>
+<!-- ⬇️ Footer -->
 <app-header></app-header>
-  
+<app-footer></app-footer>

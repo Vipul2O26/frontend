@@ -28,4 +28,7 @@ export class AuthService {
   login(data: LoginRequest): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, data);
   }
+  
+  
+  
 }

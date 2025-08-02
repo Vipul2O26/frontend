@@ -3,9 +3,9 @@ import { RouterOutlet } from '@angular/router';
 
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './component/header/header';
-import { FooterComponent } from './component/footer/footer';
-import { CalendarComponent } from './component/calendar/calendar';
+
+
+
 
 
 @Component({

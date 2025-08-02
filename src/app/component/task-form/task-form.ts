@@ -5,12 +5,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpClient } from '@angular/common/http';
 import { ViewChild, ElementRef } from '@angular/core';
 import { HeaderComponent } from '../header/header';
+import { FooterComponent } from '../footer/footer';
 
 
 @Component({
   standalone: true,
   selector: 'app-task-form',
-  imports: [CommonModule, ReactiveFormsModule , HeaderComponent],
+  imports: [CommonModule, ReactiveFormsModule , HeaderComponent , FooterComponent],
   templateUrl: './task-form.html',
   styleUrl: './task-form.css'
 })
@@ -72,35 +73,66 @@ ngAfterViewInit() {
         this.taskForm.patchValue({
           title: task.title,
           description: task.description,
-          dueDate: task.dueDate?.slice(0, 16), // trim to 'yyyy-MM-ddTHH:mm'
+          dueDate: task.dueDate?.slice(0, 16),
           priority: task.priority
         });
+  
+        // ✅ Store the userId for later
+        this.taskForm.patchValue({ userId: task.userId });
       },
       error: (err) => {
         console.error('Error loading task:', err);
       }
     });
   }
-
+  
   onSubmit() {
     if (this.taskForm.invalid) return;
   
-    const taskData = this.taskForm.value;
+    const taskData = {
+      ...this.taskForm.value,
+      isCompleted: false,
+      createdAt: new Date().toISOString(),
+      userId: 1 // 🔑 Always include this
+    };
   
     if (this.isEditMode && this.taskId !== null) {
       this.http.put(`http://localhost:5157/api/TodoTasks/${this.taskId}`, {
         id: this.taskId,
         ...taskData
-      }).subscribe(() => {
-        this.showSuccessToast('✅ Task updated successfully!');
-        this.router.navigate(['/']);
+      }).subscribe({
+        next: () => {
+          this.showSuccessToast('✅ Task updated successfully!');
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          console.error("❌ Task update failed:", error);
+          alert(JSON.stringify(error.error?.errors, null, 2));
+        }
       });
     } else {
-      this.http.post(`http://localhost:5157/api/TodoTasks`, taskData).subscribe(() => {
-        this.showSuccessToast('✅ Task added successfully!');
-        this.router.navigate(['/']);
+      this.http.post(`http://localhost:5157/api/TodoTasks`, taskData).subscribe({
+        next: () => {
+          this.showSuccessToast('✅ Task added successfully!');
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          console.error("❌ Task creation failed:", error);
+          alert(JSON.stringify(error.error?.errors, null, 2));
+        }
       });
     }
   }
+  
+  
+  getErrorMessage(err: any): string {
+    if (err.error?.errors) {
+      const messages = Object.entries(err.error.errors)
+        .map(([field, errs]) => `${field}: ${(errs as string[]).join(', ')}`);
+      return messages.join('\n');
+    }
+    return err.message || 'Unknown error occurred.';
+  }
+  
   
 }

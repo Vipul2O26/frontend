@@ -1,7 +1,8 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Route, Router, RouterModule } from '@angular/router';
+import { SessionService } from '../../services/session';
+
 
 @Component({
   selector: 'app-header',
@@ -10,10 +11,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './header.html',
 })
 export class HeaderComponent {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-
   isDarkMode = false;
   isSidebarOpen = true;
+  isBrowser: any;
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private sessionService: SessionService, // ✅ Use this
+    private router: Router                  // ✅ And this
+  ) {}
+
+
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
@@ -44,4 +52,13 @@ export class HeaderComponent {
   fetchTasks() {
     // Placeholder method
   }
+
+  logout(): void {
+    this.sessionService.logout();
+    alert('🔓 Logged out successfully');
+    this.router.navigate(['/login']);
+  }
+  
+  
+ 
 }

@@ -5,8 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import Chart from 'chart.js/auto';
 import { HeaderComponent } from '../header/header';
-import { FooterComponent } from '../footer/footer';
 import { CalendarComponent } from '../calendar/calendar';
+import { FooterComponent } from '../footer/footer';
+
 
 interface TodoTask {
   id: number;
@@ -19,12 +20,14 @@ interface TodoTask {
 @Component({
   standalone: true,
   selector: 'app-task-dashboard',
-  imports: [CommonModule, FormsModule, RouterModule , HeaderComponent , FooterComponent , CalendarComponent],
+  imports: [CommonModule, FormsModule, RouterModule , HeaderComponent , CalendarComponent , FooterComponent],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
 export class DashboardComponent implements OnInit {
   private http = inject(HttpClient);
+  sessionService: any;
+  router: any;
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   tasks = signal<TodoTask[]>([]);
@@ -143,5 +146,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
+  
   
 }

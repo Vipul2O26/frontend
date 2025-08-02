@@ -1,38 +1,16 @@
-<div 
-  class="sidebar bg-dark text-white p-3 d-flex flex-column justify-content-between transition-all duration-300"
-  [ngStyle]="{
-    left: isSidebarOpen ? '0' : '-250px',
-    width: '250px',
-    height: '100vh',
-    position: 'fixed',
-    top: '0'
-  }"
->
-  <div>
-    <h5 class="mb-4"></h5>
-    <ul class="nav flex-column">
-      <li class="nav-item mb-2">
-        <a class="nav-link text-white" routerLink="/">🏠 Dashboard</a>
-      </li>
-      <li class="nav-item mb-2">
-        <a class="nav-link text-white" routerLink="/task-form">➕ Add Task</a>
-      </li>
-    </ul>
+<header class="bg-dark text-white px-4 py-3 d-flex justify-content-between align-items-center fixed-top shadow" style="z-index: 1050;">
+  <!-- Left: Brand or App Title -->
+  <div class="d-flex align-items-center gap-3">
+    <span class="fs-4 fw-bold">📝 Task Manager</span>
+    <a class="btn btn-sm btn-outline-light" routerLink="/dashboard">🏠 Dashboard</a>
+    <a class="btn btn-sm btn-outline-light" routerLink="/task-form">➕ Add Task</a>
   </div>
 
-  <!-- Dark Mode Toggle Button at Bottom -->
-  <div>
-    <button class="btn btn-outline-light w-100 mt-auto" (click)="toggleDarkMode()">
-      {{ isDarkMode ? '🌞 Light Mode' : '🌙 Dark Mode' }}
+  <!-- Right: Controls -->
+  <div class="d-flex gap-2">
+    <button class="btn btn-sm btn-outline-danger" (click)="logout()">🔓 Logout</button>
+    <button class="btn btn-sm btn-outline-light" (click)="toggleDarkMode()">
+      {{ isDarkMode ? '🌞 ' : '🌙 ' }}
     </button>
   </div>
-</div>
-
-<!-- Toggle Button (shown on top bar or somewhere in main content) -->
-<button 
-  class="btn btn-dark position-fixed top-0 start-0 m-2"
-  (click)="toggleSidebar()"
-  style="z-index: 1050;"
->
-  {{ isSidebarOpen ? '❌ Close' : '📂 Menu' }}
-</button>
+</header>
